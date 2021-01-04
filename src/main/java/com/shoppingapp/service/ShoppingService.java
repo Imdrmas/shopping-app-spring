@@ -1,7 +1,6 @@
 package com.shoppingapp.service;
 
 import org.springframework.stereotype.Service;
-
 import com.shoppingapp.modal.Cart;
 import com.shoppingapp.modal.Category;
 import com.shoppingapp.modal.Product;
@@ -16,8 +15,6 @@ public interface ShoppingService {
 	Category addCategoryToShopping(Category category, Shopping shopping);
 	
 	Cart addCartToUser(Cart cart, User user);
-	
-	Product addProductToCart(Product product, Cart cart);
 	
 	Product addProductToCategory(Product product, Category category);
 	

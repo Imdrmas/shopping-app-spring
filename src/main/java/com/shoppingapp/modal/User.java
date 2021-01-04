@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@Column(unique = true)
 	private String username;
 
 	private String password;
@@ -40,6 +42,14 @@ public class User {
 		this.admin = admin;
 		this.shoppings = shoppings;
 		this.carts = carts;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
@@ -82,20 +92,19 @@ public class User {
 		this.carts = carts;
 	}
 
-	public void addShoppingToUser(Shopping shopping) {
-		if (getShoppings() == null) {
-			this.shoppings = new ArrayList<>();
-		}
-		getShoppings().add(shopping);
-		shopping.setUser(this);
-	}
-
 	public void addCartToUser(Cart cart) {
 		if (getCarts() == null) {
 			this.carts = new ArrayList<>();
 		}
 		getCarts().add(cart);
 		cart.setUser(this);
+	}
+	public void addShoppingToUser(Shopping shopping) {
+		if (getShoppings()==null) {
+			this.shoppings = new ArrayList<>();
+		}
+		getShoppings().add(shopping);
+		shopping.setUser(this);
 	}
 
 }

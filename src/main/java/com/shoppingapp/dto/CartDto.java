@@ -10,12 +10,12 @@ public class CartDto {
 	private String name;
 
 	private int count;
+	
+	private double price;
 
 	private double total;
 
 	private Date added;
-
-	private List<ProductDto> products;
 
 	public long getId() {
 		return id;
@@ -41,6 +41,14 @@ public class CartDto {
 		this.count = count;
 	}
 
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public double getTotal() {
 		return total;
 	}
@@ -57,12 +65,5 @@ public class CartDto {
 		this.added = added;
 	}
 
-	public List<ProductDto> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<ProductDto> products) {
-		this.products = products;
-	}
 
 }

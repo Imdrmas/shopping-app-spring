@@ -3,8 +3,8 @@ package com.shoppingapp.manager.service;
 import java.util.List;
 
 import com.shoppingapp.dto.CartDto;
+import com.shoppingapp.dto.ShoppingDto;
 import com.shoppingapp.dto.UserDto;
-import com.shoppingapp.modal.Shopping;
 
 public interface UserManagerService {
 
@@ -16,7 +16,10 @@ public interface UserManagerService {
 	
 	List<CartDto> findCartsToUser(long idUser);
 	
-	List<Shopping> findShoppingsToUser(long idUser);
+	List<ShoppingDto> findShoppingsToUser(long idUser);
 	
 	UserDto findUserById(long idUser);
+	
+	UserDto findUserByName(String username);
+
 }

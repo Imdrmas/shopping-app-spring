@@ -1,5 +1,7 @@
 package com.shoppingapp.manager.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.shoppingapp.dto.CartDto;
@@ -9,14 +11,20 @@ import com.shoppingapp.dto.ShoppingDto;
 
 @Service
 public interface ShoppingManagerService {
-
-	ShoppingDto addShoppingToUser(ShoppingDto shoppingDto, long idUser);
 	 
-	CategoryDto addCategoryToShopping(CategoryDto categoryDto, long idShopping);
+	CategoryDto addCategoryToShopping(CategoryDto categoryDto, long idUser);
 	
 	CartDto addCartToUser(CartDto cartDto, long idUser);
 	
-	ProductDto addProductToCart(ProductDto productDto, long idCart);
-	
 	ProductDto addProductToCategory(ProductDto productDto, long idCategory);
+
+	CategoryDto addShoppingToUser(ShoppingDto shoppingDto, long idUser);
+
+	List<CategoryDto> findCategoriesToShopping(long idShopping);
+
+	List<CategoryDto> findCategories();
+
+	List<ProductDto> findProductsToCategory(long idCategory);
+
+	List<ProductDto> findProducts();
 }

@@ -1,6 +1,7 @@
 package com.shoppingapp.manager.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shoppingapp.dao.UserDao;
 import com.shoppingapp.dto.CartDto;
+import com.shoppingapp.dto.ShoppingDto;
 import com.shoppingapp.dto.UserDto;
 import com.shoppingapp.modal.Cart;
 import com.shoppingapp.modal.Shopping;
@@ -26,7 +28,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 	
 	@Autowired
 	private UserDao userDao;
-
+	
 	@Override
 	public UserDto addUser(UserDto userDto) {
 		User user = orikaBeanMapper.map(userDto, User.class);
@@ -52,16 +54,29 @@ public class UserManagerServiceImpl implements UserManagerService {
 		return orikaBeanMapper.convertListDTO(carts, CartDto.class);
 	}
 
-	@Override
-	public List<Shopping> findShoppingsToUser(long idUser) {
-		User existsUser = userDao.findById(idUser).orElse(null);
-		List<Shopping> shoppings = existsUser.getShoppings();
-		return orikaBeanMapper.convertListDTO(shoppings, Shopping.class);
-	}
 
 	@Override
 	public UserDto findUserById(long idUser) {
 		return orikaBeanMapper.convertDTO(userDao.findById(idUser).orElse(null), UserDto.class);
 	}
+
+	@Override
+	public UserDto findUserByName(String username) {
+	      Optional<User> user = userDao.findByUsername(username);
+	        if (user.isPresent()) {
+	            User user1 = user.get();
+	            return orikaBeanMapper.convertDTO(user1, UserDto.class);
+	        }
+	        return null;
+
+	}
+
+	@Override
+	public List<ShoppingDto> findShoppingsToUser(long idUser) {
+		User existsUser = userDao.findById(idUser).orElse(null);
+		List<Shopping> shoppings = existsUser.getShoppings();
+		return orikaBeanMapper.convertListDTO(shoppings, ShoppingDto.class);
+	}
+
 
 }

@@ -7,6 +7,10 @@ public class CategoryDto {
 	private long id;
 
 	private String name;
+	
+	private String logo;
+	
+	private boolean expanded;
 
 	private List<ProductDto> products;
 
@@ -24,6 +28,22 @@ public class CategoryDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public boolean isExpanded() {
+		return expanded;
+	}
+
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
 	}
 
 	public List<ProductDto> getProducts() {

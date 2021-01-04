@@ -29,9 +29,6 @@ public class Product {
 	private Date created;
 
 	@ManyToOne
-	private Cart cart;
-
-	@ManyToOne
 	private Category category;
 
 	public Product() {
@@ -39,16 +36,22 @@ public class Product {
 
 	}
 
-	public Product(String name, String description, double price, String image, Date created, Cart cart,
-			Category category) {
+	public Product(String name, String description, double price, String image, Date created, Category category) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.image = image;
 		this.created = created;
-		this.cart = cart;
 		this.category = category;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -89,14 +92,6 @@ public class Product {
 
 	public void setCreated(Date created) {
 		this.created = created;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
 	}
 
 	public Category getCategory() {

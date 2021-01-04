@@ -1,12 +1,15 @@
 package com.shoppingapp.manager.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shoppingapp.dao.CartDao;
 import com.shoppingapp.dao.CategoryDao;
-import com.shoppingapp.dao.ShoppingDao;
+import com.shoppingapp.dao.ProductDao;
+import com.shoppingapp.dao.ShpoppongDao;
 import com.shoppingapp.dao.UserDao;
 import com.shoppingapp.dto.CartDto;
 import com.shoppingapp.dto.CategoryDto;
@@ -33,20 +36,16 @@ public class ShoppingManagerServiceImpl implements ShoppingManagerService {
 	private UserDao userDao;
 	
 	@Autowired
-	private ShoppingDao shoppingDao;
-	
-	@Autowired
 	private CartDao cartDao;
 	
 	@Autowired
 	private CategoryDao categoryDao;
-
-	@Override
-	public ShoppingDto addShoppingToUser(ShoppingDto shoppingDto, long idUser) {
-		Shopping shopping = orikaBeanMapper.map(shoppingDto, Shopping.class);
-		User user = userDao.findById(idUser).orElse(null);
-		return orikaBeanMapper.convertDTO(shoppingService.addShoppingToUser(shopping, user), ShoppingDto.class);
-	}
+	
+	@Autowired
+	private ShpoppongDao shoppingDao;
+	
+	@Autowired
+	private ProductDao productDao;
 
 	@Override
 	public CategoryDto addCategoryToShopping(CategoryDto categoryDto, long idShopping) {
@@ -63,17 +62,44 @@ public class ShoppingManagerServiceImpl implements ShoppingManagerService {
 	}
 
 	@Override
-	public ProductDto addProductToCart(ProductDto productDto, long idCart) {
+	public ProductDto addProductToCategory(ProductDto productDto, long idCategory) {
 		Product product = orikaBeanMapper.map(productDto, Product.class);
-		Cart cart = cartDao.findById(idCart).orElse(null);
-		return orikaBeanMapper.convertDTO(shoppingService.addProductToCart(product, cart), ProductDto.class);
+		Category category = categoryDao.findById(idCategory).orElse(null);
+		return orikaBeanMapper.convertDTO(shoppingService.addProductToCategory(product, category), ProductDto.class);
 	}
 
 	@Override
-	public ProductDto addProductToCategory(ProductDto productDto, long idCategory) {
-		Product product = orikaBeanMapper.map(productDto, Product.class);
-		Category category = categoryDao.findById(null).orElse(null);
-		return orikaBeanMapper.convertDTO(shoppingService.addProductToCategory(product, category), ProductDto.class);
+	public CategoryDto addShoppingToUser(ShoppingDto shoppingDto, long idUser) {
+		Shopping shopping = orikaBeanMapper.map(shoppingDto, Shopping.class);
+		User user = userDao.findById(idUser).orElse(null);
+		return orikaBeanMapper.convertDTO(shoppingService.addShoppingToUser(shopping, user), CategoryDto.class);
 	}
+
+	@Override
+	public List<CategoryDto> findCategoriesToShopping(long idShopping) {
+		Shopping shopping = shoppingDao.findById(idShopping).orElse(null);
+		List<Category> categories = shopping.getCategories();
+		return orikaBeanMapper.convertListDTO(categories, CategoryDto.class);
+	}
+
+	@Override
+	public List<CategoryDto> findCategories() {
+		List<Category> shoppings = categoryDao.findAll();
+		return orikaBeanMapper.convertListDTO(shoppings, CategoryDto.class);
+	}
+
+	@Override
+	public List<ProductDto> findProductsToCategory(long idCategory) {
+		Category category = categoryDao.findById(idCategory).orElse(null);
+       List<Product> products = category.getProducts();
+		return orikaBeanMapper.convertListDTO(products, ProductDto.class);
+	}
+
+	@Override
+	public List<ProductDto> findProducts() {
+		List<Product> products = productDao.findAll();
+		return orikaBeanMapper.convertListDTO(products, ProductDto.class);
+	}
+
 
 }

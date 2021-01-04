@@ -19,6 +19,10 @@ public class Category {
 	private long id;
 
 	private String name;
+	
+	private String logo;
+	
+	private boolean expanded;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Product> products;
@@ -28,6 +32,14 @@ public class Category {
 
 	public Category() {
 		super();
+	}
+
+	public Category(String name, String logo, List<Product> products, Shopping shopping) {
+		super();
+		this.name = name;
+		this.logo = logo;
+		this.products = products;
+		this.shopping = shopping;
 	}
 
 	public long getId() {
@@ -45,6 +57,22 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public boolean isExpanded() {
+		return expanded;
+	}
+
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
+	}
 
 	public List<Product> getProducts() {
 		return products;
@@ -52,20 +80,13 @@ public class Category {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
-	}
+	}      
 
 	public Shopping getShopping() {
 		return shopping;
 	}
 
 	public void setShopping(Shopping shopping) {
-		this.shopping = shopping;
-	}
-
-	public Category(String name, List<Product> products, Shopping shopping) {
-		super();
-		this.name = name;
-		this.products = products;
 		this.shopping = shopping;
 	}
 
